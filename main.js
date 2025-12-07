@@ -57,15 +57,21 @@ if (matchMedia("(hover:hover)").matches) {
   onmousemove = e => { cancelAnimationFrame(raf); raf = requestAnimationFrame(() => els.forEach(el => set(el, e.clientX, e.clientY))); };
 } else {
   let act;
+  const clear = () => (act?.classList.remove('glass-active'), act = null);
   const touch = e => {
-    cancelAnimationFrame(raf);
-    raf = requestAnimationFrame(() => {
-      const t = e.touches[0], el = document.elementFromPoint(t.clientX, t.clientY)?.closest('.card, .social-btn, .nav-btn');
-      if (act && act !== el) act.classList.remove('glass-active');
-      if (el) { set(el, t.clientX, t.clientY); el.classList.add('glass-active'); act = el; }
-    });
+    const t = e.touches[0],
+      el = document.elementFromPoint(t.clientX, t.clientY)?.closest('.card, .social-btn, .nav-btn');
+
+    if (act && act !== el) act.classList.remove('glass-active');
+    if (el) {
+      set(el, t.clientX, t.clientY);
+      el.classList.add('glass-active');
+      act = el;
+    }
   };
-  ontouchstart = ontouchmove = touch; ontouchend = () => act?.classList.remove('glass-active');
+
+  ontouchstart = ontouchmove = touch;
+  ontouchend = ontouchcancel = clear;
 }
 
 // 5. Navigation & Back Gesture
@@ -88,3 +94,4 @@ if (mBtn) {
   mWrap.onclick = e => e.stopPropagation();
 
 }
+
