@@ -21,10 +21,20 @@ const splash = document.getElementById('introSplash');
 const type = () => {
   const b = document.querySelector('.bio');
   if (!b || b.dataset.t) return;
-  const txt = b.textContent.trim(), c = document.createElement('span');
-  b.textContent = ''; b.dataset.t = 1; c.className = 'bio-cursor'; b.append(c);
+
+  const parts = b.textContent.trim().split(/(\s+)/);
+  b.textContent = '';
+  b.dataset.t = 1;
+
+  const c = document.createElement('span');
+  c.className = 'bio-cursor';
+  b.append(c);
+
   (async () => {
-    for (const x of txt) { b.insertBefore(document.createTextNode(x), c); await new Promise(r => setTimeout(r, /[.,!?;]/.test(x) ? 50 : 20)); }
+    for (const p of parts) {
+      b.insertBefore(document.createTextNode(p), c);
+      await new Promise(r => setTimeout(r, /\s/.test(p) ? 15 : 50));
+    }
     c.remove();
   })();
 };
@@ -76,4 +86,5 @@ if (mBtn) {
   mBtn.onclick = e => (e.stopPropagation(), mWrap.classList.toggle('open'));
   onclick = () => mWrap.classList.remove('open');
   mWrap.onclick = e => e.stopPropagation();
+
 }
