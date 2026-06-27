@@ -47,7 +47,7 @@ p { margin-bottom: 20px; }
 .email-reveal.is-active { opacity: 1; visibility: visible; pointer-events: auto; transform: scale(1) translateX(0); }
 .email-address { font-size: 15px; text-decoration: none; }
 .copy-icon-btn { width: 30px; height: 30px; padding: 0; position: relative; outline: none; }
-.copy-toast { position: absolute; top: -35px; left: 50%; transform: translateX(-50%); background: var(--text); color: var(--bg); font: 600 10px sans-serif; padding: 4px 10px; border-radius: 4px; opacity: 0; transition: 0.2s; }
+.copy-toast { position: absolute; top: -35px; left: 50%; transform: translateX(-50%); background: var(--text); color: var(--bg); font: 600 10px sans-serif; padding: 4px 10px; border-radius: 4px; opacity: 0; transition: 0.2s; pointer-events: none; }
 .copy-toast.show { opacity: 1; top: -40px; }
 
 /* 8. Extra Links */
